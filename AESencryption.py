@@ -29,16 +29,16 @@ def encrypt_block_after_sbox(sbox_output, subkey1, subkey2):
 # =========================
 
 # S-box output van P1 (8 bytes!)
-SBOX_P1 = bytes.fromhex("2D 02 BA C1 41 65 20 27")  # <-- JIJ invullen
+SBOX_P1 = bytes.fromhex("82 93 C3 1B FC 33 F5 C4")  # <-- JIJ invullen
 
 # S-box output van P2 (8 bytes!)
-SBOX_P2 = bytes.fromhex("C4 34 0E 0F 3F 06 8B 43")  # <-- JIJ invullen
+SBOX_P2 = bytes.fromhex("C4 F5 33 FC 1B C3 93 82")  # <-- JIJ invullen
 
 # =========================
 # Sleutels
 # =========================
 key = bytes.fromhex(
-    "1234567890ABCDEFFEDCBA0987654321FEDCBA09876543211234567890ABCDEF"
+    "1234567890ABCDEFFEDCBA09876543211234567890ABCDEFFEDCBA0987654321"
 )
 
 subkey1 = key[0:8]
@@ -58,20 +58,20 @@ print("C2 =", C2.hex())
 # # ==========================================================
 # # CBC BEREKENING (gecorrigeerd)
 # # ==========================================================
-# plaintext = bytes.fromhex("11223344556677888877665544332211")
-# P1 = plaintext[0:8]
-# P2 = plaintext[8:16]
-#
-# # Stap 1: Bereken de input voor de S-box (P2 XOR C1)
-# INPUT3 = xor_bytes(P2, C1)
-# print("INPUT3 (voor S-box opzoeken) =", INPUT3.hex())
-#
-# # Stap 2: Vul hier de S-box output in die je handmatig hebt opgezocht voor INPUT3
-# # (Komt overeen met SBOX3 uit de afbeelding: 28c6687543b4bf30)
-# SBOX_P3 = bytes.fromhex("28 C6 68 75 43 B4 BF 30")
-#
-# # Stap 3: Gebruik je functie om de rest van de encryptie te doen
-# # Deze functie doet: XOR subkey1 -> Permute -> XOR subkey2
-# C3 = encrypt_block_after_sbox(SBOX_P3, subkey1, subkey2)
-#
-# print("C3 =", C3.hex())
+plaintext = bytes.fromhex("11223344556677888877665544332211")
+P1 = plaintext[0:8]
+P2 = plaintext[8:16]
+
+# Stap 1: Bereken de input voor de S-box (P2 XOR C1)
+INPUT3 = xor_bytes(P2, C1)
+print("INPUT3 (voor S-box opzoeken) =", INPUT3.hex())
+
+# Stap 2: Vul hier de S-box output in die je handmatig hebt opgezocht voor INPUT3
+# (Komt overeen met SBOX3 uit de afbeelding: 28c6687543b4bf30)
+SBOX_P3 = bytes.fromhex("28 C6 68 75 43 B4 BF 30")
+
+# Stap 3: Gebruik je functie om de rest van de encryptie te doen
+# Deze functie doet: XOR subkey1 -> Permute -> XOR subkey2
+C3 = encrypt_block_after_sbox(SBOX_P3, subkey1, subkey2)
+
+print("C3 =", C3.hex())
